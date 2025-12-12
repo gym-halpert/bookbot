@@ -14,3 +14,13 @@ def get_chars(file_content):
             else:
                 char_counts[ch] += 1
     return char_counts
+
+def sort_on(dictionary):
+    return dictionary["num"]
+
+def chars_to_sorted(char_counts):
+    sorted = []
+    for i in char_counts:
+        sorted.append({"char": i, "num": char_counts[i]})
+    sorted.sort(reverse=True, key=sort_on)
+    return sorted
