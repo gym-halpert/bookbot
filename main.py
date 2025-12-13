@@ -1,3 +1,4 @@
+import sys
 from stats import get_num_words, get_chars, sort_on, chars_to_sorted
 
 def get_book_text(filepath):
@@ -5,9 +6,9 @@ def get_book_text(filepath):
         file_content = f.read()
     return file_content
 
-def report(filepath, total, sorted_list):
+def report(book, total, sorted_list):
     print("============ BOOKBOT ============")
-    print(f"Analyzing book found at {filepath}...")
+    print(f"Analyzing book found at {book}...")
     print("----------- Word Count ----------")
     print(f"Found {total} total words")
     print("--------- Character Count -------")
@@ -19,8 +20,13 @@ def report(filepath, total, sorted_list):
     print("============= END ===============")
 
 def main():
-    filepath = "books/frankenstein.txt"
-    file_content = get_book_text("books/frankenstein.txt")
+
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+
+    book = sys.argv[1]
+    file_content = get_book_text(book)
     total = get_num_words(file_content)
 #    print(f"Found {total} total words")
     char_counts = get_chars(file_content)
@@ -28,7 +34,7 @@ def main():
 #        print(f"'{k}': {v}")
 
     sorted_list = chars_to_sorted(char_counts)
-    report(filepath, total, sorted_list)
+    report(book, total, sorted_list)
 
 #    print(char_counts)
 main()
